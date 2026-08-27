@@ -5,7 +5,7 @@ import { useRevealOnce } from "../../lib/useRevealOnce";
 import { formatINR } from "../../utils/format";
 
 export default function FixedDepartureCard({ pkg, withFlight, index = 0 }) {
-  const [ref, visible] = useRevealOnce();
+  const [ref, visible] = useRevealOnce(0.01);
 
   return (
     <motion.article

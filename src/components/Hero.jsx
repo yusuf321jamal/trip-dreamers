@@ -33,7 +33,8 @@ export default function Hero() {
           variants={staggerItem}
           className="text-4xl font-extrabold leading-tight text-white sm:text-5xl"
         >
-          Discover Your Dream Vacation with Trip Dreamers
+          Discover Your Dream Vacation with{" "}
+          <span className="text-gradient">Trip Dreamers Holidays</span>
         </motion.h1>
         <motion.p
           variants={staggerItem}

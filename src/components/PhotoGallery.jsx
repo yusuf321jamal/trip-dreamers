@@ -65,6 +65,7 @@ export default function PhotoGallery() {
                 key={photo.id}
                 index={i}
                 step={0.05}
+                amount={0.01}
                 className={`shrink-0 overflow-hidden rounded-2xl shadow-card transition-shadow duration-300 hover:shadow-card-hover ${
                   i % 3 === 1 ? "h-72 w-56 sm:h-80 sm:w-64" : "h-52 w-40 sm:h-60 sm:w-48"
                 }`}

@@ -8,10 +8,11 @@ export default function RevealItem({
   step = 0.08,
   as = "div",
   hoverY = 0,
+  amount = 0.2,
   ...rest
 }) {
   const Comp = motion[as] ?? motion.div;
-  const [ref, visible] = useRevealOnce();
+  const [ref, visible] = useRevealOnce(amount);
   return (
     <Comp
       ref={ref}
