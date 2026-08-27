@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 375px;
+
+  --font-display: "Baloo 2", "Poppins", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-script: "Caveat", "Segoe UI", cursive;
+
+  --color-ink-900: #0b1120;
+  --color-ink-800: #131a2c;
+  --color-ink-700: #1e293b;
+  --color-ink-600: #475569;
+  --color-ink-400: #94a3b8;
+
+  --color-brand-blue: #1d5fe0;
+  --color-brand-cyan: #17d3e8;
+  --color-brand-cyan-light: #7fecf5;
+
+  --color-card-950: #0a0e17;
+  --color-card-900: #10141f;
+
+  --color-gold-400: #ffc940;
+  --color-gold-500: #f5a623;
+
+  --color-mint-50: #eefcfb;
+  --color-mint-100: #dcf9f6;
+
+  --color-sky-50: #eef4ff;
+  --color-sky-100: #e2edff;
+
+  --color-whatsapp: #25d366;
+
+  --shadow-card: 0 10px 30px -12px rgba(11, 17, 32, 0.18);
+  --shadow-card-hover: 0 20px 42px -14px rgba(11, 17, 32, 0.28);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #ffffff;
+  color: var(--color-ink-900);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+.text-gradient {
+  background-image: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-cyan));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.bg-gradient-brand {
+  background-image: linear-gradient(90deg, var(--color-brand-blue), var(--color-brand-cyan));
+}
+
+.bg-gradient-brand-r {
+  background-image: linear-gradient(120deg, var(--color-brand-blue), var(--color-brand-cyan));
+}
+
+::selection {
+  background-color: var(--color-brand-cyan-light);
+  color: var(--color-ink-900);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 26s linear infinite;
+}
