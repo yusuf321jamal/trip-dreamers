@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
+import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { popularDestinations } from "../data/destinations";
+import { staggerContainer, tapHoverSubtle, viewportOnce } from "../lib/motion";
 import CarouselDots from "./ui/CarouselDots";
 import DestinationCard from "./ui/DestinationCard";
 import SectionHeading from "./ui/SectionHeading";
@@ -38,31 +40,37 @@ export default function PopularDestinations() {
           align="center"
         />
         <div className="mt-6 flex justify-center gap-2">
-          <button
+          <motion.button
+            {...tapHoverSubtle}
             onClick={() => scrollBy(-1)}
             className="grid h-11 w-11 place-items-center rounded-full border border-ink-900/10 bg-white text-ink-900 shadow-card transition-colors hover:text-brand-blue"
             aria-label="Scroll left"
           >
             <ChevronLeft size={19} />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            {...tapHoverSubtle}
             onClick={() => scrollBy(1)}
             className="grid h-11 w-11 place-items-center rounded-full border border-ink-900/10 bg-white text-ink-900 shadow-card transition-colors hover:text-brand-blue"
             aria-label="Scroll right"
           >
             <ChevronRight size={19} />
-          </button>
+          </motion.button>
         </div>
 
-        <div
+        <motion.div
           ref={scrollerRef}
           onScroll={onScroll}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          variants={staggerContainer(0.08)}
           className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
         >
           {popularDestinations.map((dest) => (
             <DestinationCard key={dest.id} destination={dest} />
           ))}
-        </div>
+        </motion.div>
         <CarouselDots
           count={popularDestinations.length}
           active={Math.min(active, popularDestinations.length - 1)}

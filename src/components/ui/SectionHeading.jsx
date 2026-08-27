@@ -1,3 +1,5 @@
+import Reveal from "./Reveal";
+
 export default function SectionHeading({
   script,
   title,
@@ -10,7 +12,7 @@ export default function SectionHeading({
   const words = underlineWord ? title.split(underlineWord) : null;
 
   return (
-    <div
+    <Reveal
       className={`flex flex-col ${isCenter ? "items-center text-center" : "items-start text-left"}`}
     >
       {script && (
@@ -34,6 +36,6 @@ export default function SectionHeading({
       {description && (
         <p className="mt-3 max-w-2xl text-base text-ink-600">{description}</p>
       )}
-    </div>
+    </Reveal>
   );
 }

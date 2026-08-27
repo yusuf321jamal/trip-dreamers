@@ -1,9 +1,14 @@
+import { motion } from "motion/react";
 import { Clock3, MapPin } from "lucide-react";
+import { staggerItem } from "../../lib/motion";
 import { formatINR } from "../../utils/format";
 
 export default function DestinationCard({ destination }) {
   return (
-    <article className="group relative flex h-80 w-60 shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover xs:h-96 xs:w-72 sm:w-80">
+    <motion.article
+      variants={staggerItem}
+      className="group relative flex h-80 w-60 shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover xs:h-96 xs:w-72 sm:w-80"
+    >
       <img
         src={destination.image}
         alt={`${destination.name}, ${destination.country} — ${destination.tagline}`}
@@ -38,6 +43,6 @@ export default function DestinationCard({ destination }) {
           </span>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

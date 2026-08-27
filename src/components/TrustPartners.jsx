@@ -1,3 +1,5 @@
+import Reveal from "./ui/Reveal";
+
 const PARTNERS = [
   "IATA",
   "Emirates",
@@ -17,9 +19,9 @@ export default function TrustPartners() {
   return (
     <section className="overflow-hidden bg-sky-50 py-14">
       <div className="mx-auto max-w-7xl px-6 text-center">
-        <h2 className="text-xl font-bold text-ink-900 sm:text-2xl">
+        <Reveal as="h2" className="text-xl font-bold text-ink-900 sm:text-2xl">
           <span className="text-gradient">Partnered</span> with the best in the industry
-        </h2>
+        </Reveal>
       </div>
 
       <div className="group relative mt-10 [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">

@@ -1,9 +1,16 @@
+import { motion } from "motion/react";
 import { CalendarDays, Clock3, MapPin, Plane } from "lucide-react";
+import { staggerItem, tapHover, tapHoverSubtle } from "../../lib/motion";
 import { formatINR } from "../../utils/format";
 
 export default function FixedDepartureCard({ pkg, withFlight }) {
   return (
-    <article className="relative flex h-80 w-60 shrink-0 flex-col justify-end overflow-hidden rounded-2xl bg-card-950 shadow-card xs:h-96 xs:w-72 sm:w-96">
+    <motion.article
+      variants={staggerItem}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+      className="relative flex h-80 w-60 shrink-0 flex-col justify-end overflow-hidden rounded-2xl bg-card-950 shadow-card xs:h-96 xs:w-72 sm:w-96"
+    >
       <img
         src={pkg.image}
         alt={`${pkg.title} - ${pkg.cities}`}
@@ -46,14 +53,20 @@ export default function FixedDepartureCard({ pkg, withFlight }) {
         </div>
 
         <div className="mt-4 flex gap-2 border-t border-white/10 pt-4">
-          <button className="flex-1 rounded-full bg-white/10 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-white/20">
+          <motion.button
+            {...tapHoverSubtle}
+            className="flex-1 rounded-full bg-white/10 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-white/20"
+          >
             View Details
-          </button>
-          <button className="bg-gradient-brand flex-1 rounded-full py-2.5 text-xs font-semibold text-white transition-transform hover:scale-105">
+          </motion.button>
+          <motion.button
+            {...tapHover}
+            className="bg-gradient-brand flex-1 rounded-full py-2.5 text-xs font-semibold text-white"
+          >
             Enquire Now
-          </button>
+          </motion.button>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

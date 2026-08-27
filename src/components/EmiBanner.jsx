@@ -1,11 +1,12 @@
 import { ArrowRight } from "lucide-react";
 import { img } from "../data/img";
+import Reveal from "./ui/Reveal";
 
 export default function EmiBanner() {
   return (
     <section className="bg-white py-10">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="relative flex flex-col overflow-hidden rounded-3xl shadow-card sm:flex-row sm:items-center">
+        <Reveal className="relative flex flex-col overflow-hidden rounded-3xl shadow-card sm:flex-row sm:items-center">
           <img
             src={img("1520250497591-112f2f40a3f4", 1200, 65)}
             alt="Traveler relaxing at a resort"
@@ -43,7 +44,7 @@ export default function EmiBanner() {
               <p className="text-xs font-semibold text-ink-900">Months</p>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

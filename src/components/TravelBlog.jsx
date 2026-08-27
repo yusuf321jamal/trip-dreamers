@@ -1,11 +1,14 @@
+import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { blogPosts } from "../data/blog";
+import { staggerContainer, staggerItem, tapHover, viewportOnce } from "../lib/motion";
+import Reveal from "./ui/Reveal";
 
 export default function TravelBlog() {
   return (
     <section id="blog" className="scroll-mt-24 bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="bg-gradient-brand flex flex-col items-start gap-5 rounded-3xl p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+        <Reveal className="bg-gradient-brand flex flex-col items-start gap-5 rounded-3xl p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
           <div>
             <h2 className="text-2xl font-extrabold text-white sm:text-3xl">
               Explore Our Travel Blog
@@ -15,19 +18,27 @@ export default function TravelBlog() {
               travelers.
             </p>
           </div>
-          <a
+          <motion.a
+            {...tapHover}
             href="#blog"
-            className="flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-brand-blue transition-transform hover:scale-105"
+            className="flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-brand-blue"
           >
             Read Our Blog
             <ArrowRight size={16} />
-          </a>
-        </div>
+          </motion.a>
+        </Reveal>
 
-        <div className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          variants={staggerContainer(0.1)}
+          className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {blogPosts.map((post) => (
-            <article
+            <motion.article
               key={post.id}
+              variants={staggerItem}
               className="group flex flex-col overflow-hidden rounded-2xl border border-ink-900/10 bg-white shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover"
             >
               <div className="h-48 w-full overflow-hidden">
@@ -60,9 +71,9 @@ export default function TravelBlog() {
                   </span>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

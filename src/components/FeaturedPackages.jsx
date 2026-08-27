@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { motion } from "motion/react";
 import { featuredPackages } from "../data/packages";
+import { staggerContainer, tapHover, tapHoverSubtle, viewportOnce } from "../lib/motion";
 import PackageCard from "./ui/PackageCard";
 import SectionHeading from "./ui/SectionHeading";
 
@@ -29,8 +31,9 @@ export default function FeaturedPackages() {
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-2.5">
           {FILTERS.map((f) => (
-            <button
+            <motion.button
               key={f.key}
+              {...tapHoverSubtle}
               onClick={() => setActive(f.key)}
               className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
                 active === f.key
@@ -39,23 +42,31 @@ export default function FeaturedPackages() {
               }`}
             >
               {f.label}
-            </button>
+            </motion.button>
           ))}
         </div>
 
-        <div className="mt-11 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div
+          key={active}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          variants={staggerContainer(0.08)}
+          className="mt-11 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {filtered.map((pkg) => (
             <PackageCard key={pkg.id} pkg={pkg} />
           ))}
-        </div>
+        </motion.div>
 
         <div className="mt-12 flex justify-center">
-          <a
+          <motion.a
+            {...tapHover}
             href="#enquiry"
-            className="bg-gradient-brand rounded-full px-7 py-3 text-sm font-semibold text-white shadow-card transition-transform hover:scale-105"
+            className="bg-gradient-brand rounded-full px-7 py-3 text-sm font-semibold text-white shadow-card"
           >
             View All Packages
-          </a>
+          </motion.a>
         </div>
       </div>
     </section>

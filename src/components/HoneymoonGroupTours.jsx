@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { motion } from "motion/react";
 import { Heart, Users } from "lucide-react";
 import { groupTourPackages, honeymoonPackages } from "../data/packages";
+import { staggerContainer, staggerItem, tapHover, tapHoverSubtle, viewportOnce } from "../lib/motion";
 import { formatINR } from "../utils/format";
 import SectionHeading from "./ui/SectionHeading";
 
@@ -28,8 +30,9 @@ export default function HoneymoonGroupTours() {
               const Icon = tab.icon;
               const isActive = tab.key === active;
               return (
-                <button
+                <motion.button
                   key={tab.key}
+                  {...tapHoverSubtle}
                   onClick={() => setActive(tab.key)}
                   className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors ${
                     isActive
@@ -39,16 +42,24 @@ export default function HoneymoonGroupTours() {
                 >
                   <Icon size={15} />
                   {tab.label}
-                </button>
+                </motion.button>
               );
             })}
           </div>
         </div>
 
-        <div className="mt-11 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <motion.div
+          key={active}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          variants={staggerContainer(0.1)}
+          className="mt-11 grid grid-cols-1 gap-6 sm:grid-cols-3"
+        >
           {current.data.map((pkg) => (
-            <article
+            <motion.article
               key={pkg.id}
+              variants={staggerItem}
               className="group relative flex h-96 flex-col justify-end overflow-hidden rounded-2xl bg-card-950 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover"
             >
               <img
@@ -69,16 +80,17 @@ export default function HoneymoonGroupTours() {
                     from <span className="font-semibold text-white">{formatINR(pkg.price)}</span>
                   </p>
                 </div>
-                <a
+                <motion.a
+                  {...tapHover}
                   href="#enquiry"
-                  className="bg-gradient-brand shrink-0 rounded-full px-4 py-2 text-xs font-semibold text-white transition-transform hover:scale-105"
+                  className="bg-gradient-brand shrink-0 rounded-full px-4 py-2 text-xs font-semibold text-white"
                 >
                   Enquire
-                </a>
+                </motion.a>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

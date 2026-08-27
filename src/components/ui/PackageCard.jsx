@@ -1,11 +1,16 @@
+import { motion } from "motion/react";
 import { Clock3, MapPin, Star } from "lucide-react";
+import { staggerItem, tapHover, tapHoverSubtle } from "../../lib/motion";
 import { formatINR } from "../../utils/format";
 
 export default function PackageCard({ pkg }) {
   const discount = Math.round(((pkg.priceOriginal - pkg.price) / pkg.priceOriginal) * 100);
 
   return (
-    <article className="group relative flex h-96 flex-col justify-end overflow-hidden rounded-2xl bg-card-950 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover">
+    <motion.article
+      variants={staggerItem}
+      className="group relative flex h-96 flex-col justify-end overflow-hidden rounded-2xl bg-card-950 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover"
+    >
       <img
         src={pkg.image}
         alt={`${pkg.title} - ${pkg.cities}`}
@@ -45,7 +50,7 @@ export default function PackageCard({ pkg }) {
           </span>
         </div>
 
-        <div className="mt-4 flex items-end justify-between gap-3 border-t border-white/10 pt-4">
+        <div className="mt-4 flex flex-col items-start gap-3 border-t border-white/10 pt-4">
           <div>
             <p className="text-[11px] text-white/60">Starts from</p>
             <div className="flex items-baseline gap-2">
@@ -60,15 +65,21 @@ export default function PackageCard({ pkg }) {
             </div>
           </div>
           <div className="flex shrink-0 gap-2">
-            <button className="rounded-full bg-white/10 px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/20">
+            <motion.button
+              {...tapHoverSubtle}
+              className="rounded-full bg-white/10 px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/20"
+            >
               View Details
-            </button>
-            <button className="bg-gradient-brand rounded-full px-3.5 py-2 text-xs font-semibold text-white shadow-sm transition-transform hover:scale-105">
+            </motion.button>
+            <motion.button
+              {...tapHover}
+              className="bg-gradient-brand rounded-full px-3.5 py-2 text-xs font-semibold text-white shadow-sm"
+            >
               Enquire Now
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

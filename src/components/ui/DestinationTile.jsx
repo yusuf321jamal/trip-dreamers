@@ -1,6 +1,10 @@
+import { motion } from "motion/react";
+import { staggerItem } from "../../lib/motion";
+
 export default function DestinationTile({ place }) {
   return (
-    <a
+    <motion.a
+      variants={staggerItem}
       href="#enquiry"
       className="group relative flex h-44 flex-col justify-end overflow-hidden rounded-xl shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover sm:h-52"
     >
@@ -15,6 +19,6 @@ export default function DestinationTile({ place }) {
       <span className="relative p-4 font-display text-base font-bold text-white sm:text-lg">
         {place.name}
       </span>
-    </a>
+    </motion.a>
   );
 }

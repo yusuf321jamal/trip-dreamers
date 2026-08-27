@@ -1,5 +1,7 @@
+import { motion } from "motion/react";
 import { Star } from "lucide-react";
 import { testimonials } from "../data/testimonials";
+import { staggerContainer, staggerItem, tapHover, viewportOnce } from "../lib/motion";
 import SectionHeading from "./ui/SectionHeading";
 
 export default function Testimonials() {
@@ -13,10 +15,17 @@ export default function Testimonials() {
           align="center"
         />
 
-        <div className="mt-11 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          variants={staggerContainer(0.12)}
+          className="mt-11 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {testimonials.slice(0, 3).map((t) => (
-            <figure
+            <motion.figure
               key={t.id}
+              variants={staggerItem}
               className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
             >
               <img
@@ -43,17 +52,18 @@ export default function Testimonials() {
                   {t.date}
                 </p>
               </div>
-            </figure>
+            </motion.figure>
           ))}
-        </div>
+        </motion.div>
 
         <div className="mt-10 flex justify-center">
-          <a
+          <motion.a
+            {...tapHover}
             href="#testimonials"
-            className="bg-gradient-brand rounded-full px-7 py-3 text-sm font-semibold text-white shadow-card transition-transform hover:scale-105"
+            className="bg-gradient-brand rounded-full px-7 py-3 text-sm font-semibold text-white shadow-card"
           >
             View All Reviews
-          </a>
+          </motion.a>
         </div>
       </div>
     </section>
