@@ -1,8 +1,7 @@
-import { motion } from "motion/react";
 import { Settings2, ShieldCheck, ThumbsUp, Users } from "lucide-react";
-import { staggerContainer, staggerItem, viewportOnce } from "../lib/motion";
 import HexIcon from "./ui/HexIcon";
 import Reveal from "./ui/Reveal";
+import RevealItem from "./ui/RevealItem";
 
 const REASONS = [
   {
@@ -39,25 +38,19 @@ export default function WhyChooseUs() {
           WHY <span className="border-b-4 border-brand-cyan">WE ARE THE BEST</span>
         </Reveal>
 
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          variants={staggerContainer(0.1)}
-          className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-ink-900/10"
-        >
-          {REASONS.map((reason) => (
-            <motion.div
+        <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-ink-900/10">
+          {REASONS.map((reason, i) => (
+            <RevealItem
               key={reason.title}
-              variants={staggerItem}
+              index={i}
               className="flex flex-col items-center px-2 text-center lg:px-6"
             >
               <HexIcon icon={reason.icon} />
               <h3 className="mt-5 font-display text-lg font-bold text-ink-900">{reason.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-ink-600">{reason.description}</p>
-            </motion.div>
+            </RevealItem>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

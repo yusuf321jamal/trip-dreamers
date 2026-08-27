@@ -1,13 +1,19 @@
 import { motion } from "motion/react";
 import { Clock3, MapPin } from "lucide-react";
-import { staggerItem } from "../../lib/motion";
+import { easeOut } from "../../lib/motion";
+import { useRevealOnce } from "../../lib/useRevealOnce";
 import { formatINR } from "../../utils/format";
 
-export default function DestinationCard({ destination }) {
+export default function DestinationCard({ destination, index = 0 }) {
+  const [ref, visible] = useRevealOnce();
+
   return (
     <motion.article
-      variants={staggerItem}
-      className="group relative flex h-80 w-60 shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover xs:h-96 xs:w-72 sm:w-80"
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{ duration: 0.6, ease: easeOut, delay: index * 0.06 }}
+      className="group relative flex h-80 w-60 shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl shadow-card transition-shadow duration-300 hover:shadow-card-hover xs:h-96 xs:w-72 sm:w-80"
     >
       <img
         src={destination.image}

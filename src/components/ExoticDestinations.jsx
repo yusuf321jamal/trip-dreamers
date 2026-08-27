@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { exoticDestinations } from "../data/exoticDestinations";
 import { slideInLeft, slideInRight, tapHover } from "../lib/motion";
 import Reveal from "./ui/Reveal";
+import RotatingImage from "./ui/RotatingImage";
 
 export default function ExoticDestinations() {
   return (
@@ -59,13 +60,10 @@ export default function ExoticDestinations() {
                   variants={reversed ? slideInLeft : slideInRight}
                   className="w-full flex-1 overflow-hidden rounded-3xl shadow-card"
                 >
-                  <motion.img
-                    whileHover={{ scale: 1.04 }}
-                    transition={{ duration: 0.4 }}
-                    src={dest.image}
+                  <RotatingImage
+                    images={dest.images}
                     alt={`${dest.name} travel destination`}
-                    loading="lazy"
-                    className="h-72 w-full object-cover sm:h-96"
+                    className="h-72 w-full sm:h-96"
                   />
                 </Reveal>
               </div>

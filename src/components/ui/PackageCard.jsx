@@ -1,15 +1,20 @@
 import { motion } from "motion/react";
 import { Clock3, MapPin, Star } from "lucide-react";
-import { staggerItem, tapHover, tapHoverSubtle } from "../../lib/motion";
+import { easeOut, tapHover, tapHoverSubtle } from "../../lib/motion";
+import { useRevealOnce } from "../../lib/useRevealOnce";
 import { formatINR } from "../../utils/format";
 
-export default function PackageCard({ pkg }) {
+export default function PackageCard({ pkg, index = 0 }) {
   const discount = Math.round(((pkg.priceOriginal - pkg.price) / pkg.priceOriginal) * 100);
+  const [ref, visible] = useRevealOnce();
 
   return (
     <motion.article
-      variants={staggerItem}
-      className="group relative flex h-96 flex-col justify-end overflow-hidden rounded-2xl bg-card-950 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover"
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{ duration: 0.6, ease: easeOut, delay: index * 0.08 }}
+      className="group relative flex h-96 flex-col justify-end overflow-hidden rounded-2xl bg-card-950 shadow-card transition-shadow duration-300 hover:shadow-card-hover"
     >
       <img
         src={pkg.image}

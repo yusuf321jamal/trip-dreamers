@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { popularDestinations } from "../data/destinations";
-import { staggerContainer, tapHoverSubtle, viewportOnce } from "../lib/motion";
+import { tapHoverSubtle } from "../lib/motion";
 import CarouselDots from "./ui/CarouselDots";
 import DestinationCard from "./ui/DestinationCard";
 import SectionHeading from "./ui/SectionHeading";
@@ -58,19 +58,15 @@ export default function PopularDestinations() {
           </motion.button>
         </div>
 
-        <motion.div
+        <div
           ref={scrollerRef}
           onScroll={onScroll}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          variants={staggerContainer(0.08)}
           className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
         >
-          {popularDestinations.map((dest) => (
-            <DestinationCard key={dest.id} destination={dest} />
+          {popularDestinations.map((dest, i) => (
+            <DestinationCard key={dest.id} destination={dest} index={i} />
           ))}
-        </motion.div>
+        </div>
         <CarouselDots
           count={popularDestinations.length}
           active={Math.min(active, popularDestinations.length - 1)}

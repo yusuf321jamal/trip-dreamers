@@ -1,12 +1,18 @@
 import { motion } from "motion/react";
-import { staggerItem } from "../../lib/motion";
+import { easeOut } from "../../lib/motion";
+import { useRevealOnce } from "../../lib/useRevealOnce";
 
-export default function DestinationTile({ place }) {
+export default function DestinationTile({ place, index = 0 }) {
+  const [ref, visible] = useRevealOnce();
+
   return (
     <motion.a
-      variants={staggerItem}
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{ duration: 0.5, ease: easeOut, delay: index * 0.04 }}
       href="#enquiry"
-      className="group relative flex h-44 flex-col justify-end overflow-hidden rounded-xl shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover sm:h-52"
+      className="group relative flex h-44 flex-col justify-end overflow-hidden rounded-xl shadow-card transition-shadow duration-300 hover:shadow-card-hover sm:h-52"
     >
       <img
         src={place.image}

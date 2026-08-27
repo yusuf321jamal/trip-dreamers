@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, Compass, Menu, Phone, Search, X } from "lucide-react";
 import { navMenus } from "../data/navMenus";
@@ -20,6 +20,15 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDesktopMenu, setOpenDesktopMenu] = useState(null);
   const [openMobileMenu, setOpenMobileMenu] = useState(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [menuOpen]);
 
   return (
     <motion.header
@@ -135,14 +144,42 @@ export default function Header() {
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="border-t border-ink-900/10 bg-white px-6 py-5 lg:hidden"
-          >
-            <nav className="flex flex-col gap-1">
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-40 bg-ink-900/50 lg:hidden"
+              aria-hidden="true"
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-y-0 right-0 z-50 w-[85%] max-w-sm overflow-y-auto bg-white px-6 py-5 shadow-card-hover lg:hidden"
+            >
+              <div className="flex items-center justify-between border-b border-ink-900/10 pb-4">
+                <span className="flex items-center gap-2">
+                  <span className="bg-gradient-brand-r flex h-9 w-9 items-center justify-center rounded-xl text-white">
+                    <Compass size={18} strokeWidth={2.2} />
+                  </span>
+                  <span className="font-display text-lg font-extrabold text-ink-900">
+                    Trip Dreamers
+                  </span>
+                </span>
+                <motion.button
+                  {...tapHoverSubtle}
+                  onClick={() => setMenuOpen(false)}
+                  aria-label="Close navigation menu"
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-ink-900"
+                >
+                  <X size={22} />
+                </motion.button>
+              </div>
+            <nav className="flex flex-col gap-1 pt-4">
               {navMenus.map((menu) => (
                 <div key={menu.key} className="border-b border-ink-900/5 py-2">
                   <button
@@ -209,7 +246,8 @@ export default function Header() {
                 +91 98765 43210
               </a>
             </nav>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.header>

@@ -2,9 +2,10 @@ import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { img } from "../data/img";
-import { staggerContainer, staggerItem, tapHoverSubtle, viewportOnce } from "../lib/motion";
+import { tapHoverSubtle } from "../lib/motion";
 import CarouselDots from "./ui/CarouselDots";
 import Reveal from "./ui/Reveal";
+import RevealItem from "./ui/RevealItem";
 
 const PHOTOS = [
   { id: 1, src: img("1570077188670-e3a8d69ac5ff", 500), alt: "Santorini's whitewashed cliffs at sunset" },
@@ -54,20 +55,17 @@ export default function PhotoGallery() {
             <ChevronLeft size={18} />
           </motion.button>
 
-          <motion.div
+          <div
             ref={scrollerRef}
             onScroll={onScroll}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
-            variants={staggerContainer(0.05)}
             className="scrollbar-none flex items-center gap-4 overflow-x-auto px-1 pb-6 sm:px-10"
           >
             {PHOTOS.map((photo, i) => (
-              <motion.div
+              <RevealItem
                 key={photo.id}
-                variants={staggerItem}
-                className={`shrink-0 overflow-hidden rounded-2xl shadow-card transition-all duration-300 hover:-translate-y-2 hover:shadow-card-hover ${
+                index={i}
+                step={0.05}
+                className={`shrink-0 overflow-hidden rounded-2xl shadow-card transition-shadow duration-300 hover:shadow-card-hover ${
                   i % 3 === 1 ? "h-72 w-56 sm:h-80 sm:w-64" : "h-52 w-40 sm:h-60 sm:w-48"
                 }`}
               >
@@ -77,9 +75,9 @@ export default function PhotoGallery() {
                   loading="lazy"
                   className="h-full w-full object-cover"
                 />
-              </motion.div>
+              </RevealItem>
             ))}
-          </motion.div>
+          </div>
 
           <motion.button
             {...tapHoverSubtle}

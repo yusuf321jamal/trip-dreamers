@@ -1,7 +1,8 @@
 import { motion } from "motion/react";
 import { Star } from "lucide-react";
 import { testimonials } from "../data/testimonials";
-import { staggerContainer, staggerItem, tapHover, viewportOnce } from "../lib/motion";
+import { tapHover } from "../lib/motion";
+import RevealItem from "./ui/RevealItem";
 import SectionHeading from "./ui/SectionHeading";
 
 export default function Testimonials() {
@@ -15,18 +16,14 @@ export default function Testimonials() {
           align="center"
         />
 
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          variants={staggerContainer(0.12)}
-          className="mt-11 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {testimonials.slice(0, 3).map((t) => (
-            <motion.figure
+        <div className="mt-11 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {testimonials.slice(0, 3).map((t, i) => (
+            <RevealItem
               key={t.id}
-              variants={staggerItem}
-              className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+              as="figure"
+              index={i}
+              step={0.1}
+              className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-card transition-shadow duration-300 hover:shadow-card-hover"
             >
               <img
                 src={t.photo}
@@ -52,9 +49,9 @@ export default function Testimonials() {
                   {t.date}
                 </p>
               </div>
-            </motion.figure>
+            </RevealItem>
           ))}
-        </motion.div>
+        </div>
 
         <div className="mt-10 flex justify-center">
           <motion.a

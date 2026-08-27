@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { featuredPackages } from "../data/packages";
-import { staggerContainer, tapHover, tapHoverSubtle, viewportOnce } from "../lib/motion";
+import { tapHover, tapHoverSubtle } from "../lib/motion";
 import PackageCard from "./ui/PackageCard";
 import SectionHeading from "./ui/SectionHeading";
 
@@ -12,6 +12,16 @@ const FILTERS = [
   { key: "India Favourite", label: "India" },
   { key: "Trending", label: "Trending" },
 ];
+
+function PackageGrid({ filtered }) {
+  return (
+    <div className="mt-11 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+      {filtered.map((pkg, i) => (
+        <PackageCard key={pkg.id} pkg={pkg} index={i} />
+      ))}
+    </div>
+  );
+}
 
 export default function FeaturedPackages() {
   const [active, setActive] = useState("all");
@@ -46,18 +56,7 @@ export default function FeaturedPackages() {
           ))}
         </div>
 
-        <motion.div
-          key={active}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          variants={staggerContainer(0.08)}
-          className="mt-11 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {filtered.map((pkg) => (
-            <PackageCard key={pkg.id} pkg={pkg} />
-          ))}
-        </motion.div>
+        <PackageGrid key={active} filtered={filtered} />
 
         <div className="mt-12 flex justify-center">
           <motion.a

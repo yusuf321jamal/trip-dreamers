@@ -36,8 +36,6 @@ export function staggerContainer(stagger = 0.1, delayChildren = 0) {
 
 export const staggerItem = fadeUp;
 
-export const viewportOnce = { once: true, amount: 0.2 };
-
 export const tapHover = {
   whileHover: { scale: 1.03 },
   whileTap: { scale: 0.97 },

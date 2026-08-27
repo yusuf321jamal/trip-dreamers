@@ -1,15 +1,19 @@
 import { motion } from "motion/react";
 import { CalendarDays, Clock3, MapPin, Plane } from "lucide-react";
-import { staggerItem, tapHover, tapHoverSubtle } from "../../lib/motion";
+import { easeOut, tapHover, tapHoverSubtle } from "../../lib/motion";
+import { useRevealOnce } from "../../lib/useRevealOnce";
 import { formatINR } from "../../utils/format";
 
-export default function FixedDepartureCard({ pkg, withFlight }) {
+export default function FixedDepartureCard({ pkg, withFlight, index = 0 }) {
+  const [ref, visible] = useRevealOnce();
+
   return (
     <motion.article
-      variants={staggerItem}
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      className="relative flex h-80 w-60 shrink-0 flex-col justify-end overflow-hidden rounded-2xl bg-card-950 shadow-card xs:h-96 xs:w-72 sm:w-96"
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{ duration: 0.6, ease: easeOut, delay: index * 0.08 }}
+      className="relative flex h-80 w-60 shrink-0 flex-col justify-end overflow-hidden rounded-2xl bg-card-950 shadow-card transition-shadow duration-300 hover:shadow-card-hover xs:h-96 xs:w-72 sm:w-96"
     >
       <img
         src={pkg.image}

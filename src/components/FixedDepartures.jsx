@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { withFlights, withoutFlights } from "../data/fixedDepartures";
-import { staggerContainer, tapHoverSubtle, viewportOnce } from "../lib/motion";
+import { tapHoverSubtle } from "../lib/motion";
 import CarouselDots from "./ui/CarouselDots";
 import FixedDepartureCard from "./ui/FixedDepartureCard";
 import Reveal from "./ui/Reveal";
@@ -48,19 +48,15 @@ function DepartureRow({ title, items, withFlight }) {
         >
           <ChevronLeft size={18} />
         </motion.button>
-        <motion.div
+        <div
           ref={scrollerRef}
           onScroll={onScroll}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          variants={staggerContainer(0.08)}
           className="scrollbar-none flex gap-5 overflow-x-auto px-1 pb-2 sm:px-14"
         >
-          {items.map((pkg) => (
-            <FixedDepartureCard key={pkg.id} pkg={pkg} withFlight={withFlight} />
+          {items.map((pkg, i) => (
+            <FixedDepartureCard key={pkg.id} pkg={pkg} withFlight={withFlight} index={i} />
           ))}
-        </motion.div>
+        </div>
         <motion.button
           {...tapHoverSubtle}
           onClick={() => scrollBy(1)}

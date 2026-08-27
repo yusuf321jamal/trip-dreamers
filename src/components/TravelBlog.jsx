@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { blogPosts } from "../data/blog";
-import { staggerContainer, staggerItem, tapHover, viewportOnce } from "../lib/motion";
+import { tapHover } from "../lib/motion";
 import Reveal from "./ui/Reveal";
+import RevealItem from "./ui/RevealItem";
 
 export default function TravelBlog() {
   return (
@@ -28,18 +29,13 @@ export default function TravelBlog() {
           </motion.a>
         </Reveal>
 
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          variants={staggerContainer(0.1)}
-          className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {blogPosts.map((post) => (
-            <motion.article
+        <div className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          {blogPosts.map((post, i) => (
+            <RevealItem
               key={post.id}
-              variants={staggerItem}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-ink-900/10 bg-white shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover"
+              as="article"
+              index={i}
+              className="group flex flex-col overflow-hidden rounded-2xl border border-ink-900/10 bg-white shadow-card transition-shadow duration-300 hover:shadow-card-hover"
             >
               <div className="h-48 w-full overflow-hidden">
                 <img
@@ -71,9 +67,9 @@ export default function TravelBlog() {
                   </span>
                 </div>
               </div>
-            </motion.article>
+            </RevealItem>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
