@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
-export default function RotatingImage({ images, alt, className, interval = 3500 }) {
+export default function RotatingImage({ images, alt, className, interval = 3500, showDots = true }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -15,7 +15,7 @@ export default function RotatingImage({ images, alt, className, interval = 3500 
 
   return (
     <div
-      className={`relative overflow-hidden ${className}`}
+      className={`overflow-hidden ${className}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -33,7 +33,7 @@ export default function RotatingImage({ images, alt, className, interval = 3500 
         />
       </AnimatePresence>
 
-      {images.length > 1 && (
+      {showDots && images.length > 1 && (
         <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
           {images.map((_, i) => (
             <button

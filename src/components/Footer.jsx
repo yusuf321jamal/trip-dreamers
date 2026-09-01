@@ -1,9 +1,12 @@
-import { Compass } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Mail, MapPin, Phone } from "lucide-react";
+import logo from "../assets/brand/logo.png";
 import arcDeTriomphe from "../assets/landmarks/arc-de-triomphe.png";
 import baliTemple from "../assets/landmarks/bali-temple.png";
 import colosseum from "../assets/landmarks/colosseum.png";
 import eiffelTower from "../assets/landmarks/eiffel-tower.png";
 import venicePoles from "../assets/landmarks/venice-poles.png";
+import { contactInfo } from "../data/contact";
 import { fadeIn } from "../lib/motion";
 import Reveal from "./ui/Reveal";
 import SocialIcon from "./ui/SocialIcon";
@@ -20,6 +23,11 @@ const QUICK_LINKS = [
   "Refund & Cancellation",
   "EMI Calculator",
 ];
+
+const ROUTED_LINKS = {
+  "About Us": "/about",
+  "Contact Us": "/contact",
+};
 
 const INTERNATIONAL_TOURS = [
   "Europe Trip",
@@ -56,17 +64,9 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6">
         <Reveal variants={fadeIn} className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2 lg:col-span-2">
-            <a href="#top" className="flex items-center gap-2.5">
-              <span className="bg-gradient-brand-r flex h-10 w-10 items-center justify-center rounded-xl text-white">
-                <Compass size={20} />
-              </span>
-              <span className="flex flex-col leading-none">
-                <span className="font-display text-lg font-extrabold text-ink-900">Trip Dreamers</span>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-blue">
-                  Holidays
-                </span>
-              </span>
-            </a>
+            <Link to="/" className="flex items-center">
+              <img src={logo} alt="Trip Dreamers Holidays" className="h-14 w-auto object-contain" />
+            </Link>
             <p className="mt-2 text-sm font-bold uppercase tracking-wide text-brand-blue">
               Trip Dreamers Holidays Private Limited
             </p>
@@ -74,6 +74,23 @@ export default function Footer() {
               Trip Dreamers Holidays is your trusted partner for seamless travel experiences and comprehensive
               holiday planning — since 2014.
             </p>
+            <div className="mt-5 flex flex-col gap-2.5 text-sm text-ink-600">
+              <a href={contactInfo.phoneHref} className="flex items-center gap-2.5 transition-colors hover:text-brand-blue">
+                <Phone size={15} className="shrink-0 text-brand-blue" />
+                {contactInfo.phoneDisplay}
+              </a>
+              <a
+                href={`mailto:${contactInfo.email}`}
+                className="flex items-center gap-2.5 transition-colors hover:text-brand-blue"
+              >
+                <Mail size={15} className="shrink-0 text-brand-blue" />
+                {contactInfo.email}
+              </a>
+              <span className="flex items-start gap-2.5">
+                <MapPin size={15} className="mt-0.5 shrink-0 text-brand-blue" />
+                {contactInfo.addressFull}
+              </span>
+            </div>
             <div className="mt-6 flex items-center gap-3">
               {SOCIALS.map(({ icon, label, bg }) => (
                 <a
@@ -91,13 +108,21 @@ export default function Footer() {
           <div>
             <h4 className="mb-4 font-display text-sm font-bold text-brand-blue">Quick Links</h4>
             <ul className="flex flex-col gap-2.5 text-sm">
-              {QUICK_LINKS.map((item) => (
-                <li key={item}>
-                  <a href="#top" className="transition-colors hover:text-brand-blue">
-                    {item}
-                  </a>
-                </li>
-              ))}
+              {QUICK_LINKS.map((item) =>
+                ROUTED_LINKS[item] ? (
+                  <li key={item}>
+                    <Link to={ROUTED_LINKS[item]} className="transition-colors hover:text-brand-blue">
+                      {item}
+                    </Link>
+                  </li>
+                ) : (
+                  <li key={item}>
+                    <a href="#top" className="transition-colors hover:text-brand-blue">
+                      {item}
+                    </a>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 

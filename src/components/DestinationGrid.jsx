@@ -14,9 +14,9 @@ export default function DestinationGrid({
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="flex flex-col items-center text-center">
           <div className="flex items-center gap-3">
-            <h2 className="text-gradient text-3xl font-extrabold sm:text-4xl">
-              {title}
-            </h2>
+            <span className="text-2xl">{icon}</span>
+            <h2 className="text-gradient text-3xl font-extrabold sm:text-4xl">{title}</h2>
+            <span className="text-2xl">{icon}</span>
           </div>
           <span className="font-script mt-1 text-2xl text-brand-blue sm:text-3xl">
             {script}

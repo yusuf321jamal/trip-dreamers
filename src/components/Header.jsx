@@ -1,13 +1,32 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronDown, Compass, Menu, Phone, Search, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ChevronDown, Menu, Phone, Search, X } from "lucide-react";
+import logo from "../assets/brand/logo.png";
+import { contactInfo } from "../data/contact";
 import { navMenus } from "../data/navMenus";
 import { tapHoverSubtle } from "../lib/motion";
 
 const UTILITY_LINKS = [
   { label: "Why Trip Dreamers", href: "#why-us" },
   { label: "Reviews", href: "#testimonials" },
+  { label: "Contact Us", href: "/contact" },
 ];
+
+function UtilityLink({ link, className, onClick }) {
+  if (link.href.startsWith("/")) {
+    return (
+      <Link to={link.href} onClick={onClick} className={className}>
+        {link.label}
+      </Link>
+    );
+  }
+  return (
+    <a href={link.href} onClick={onClick} className={className}>
+      {link.label}
+    </a>
+  );
+}
 
 const dropdownMotion = {
   initial: { opacity: 0, y: -6 },
@@ -38,17 +57,9 @@ export default function Header() {
       className="sticky top-0 z-50 w-full border-b border-ink-900/5 bg-white"
     >
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3.5">
-        <a href="#top" className="flex shrink-0 items-center gap-2">
-          <span className="bg-gradient-brand-r flex h-10 w-10 items-center justify-center rounded-xl text-white">
-            <Compass size={22} strokeWidth={2.2} />
-          </span>
-          <span className="flex flex-col leading-none">
-            <span className="font-display text-xl font-extrabold text-ink-900">Trip Dreamers</span>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-blue">
-              Holidays
-            </span>
-          </span>
-        </a>
+        <Link to="/" className="flex shrink-0 items-center">
+          <img src={logo} alt="Trip Dreamers Holidays" className="h-11 w-auto object-contain sm:h-12" />
+        </Link>
 
         <div className="hidden max-w-md flex-1 items-center gap-2 rounded-full border border-ink-900/10 bg-sky-50 px-4 py-2.5 md:flex">
           <Search size={16} className="shrink-0 text-ink-400" />
@@ -61,23 +72,21 @@ export default function Header() {
 
         <nav className="ml-auto hidden items-center gap-6 lg:flex">
           {UTILITY_LINKS.map((link) => (
-            <a
+            <UtilityLink
               key={link.label}
-              href={link.href}
+              link={link}
               className="text-sm font-semibold text-ink-700 transition-colors hover:text-brand-blue"
-            >
-              {link.label}
-            </a>
+            />
           ))}
         </nav>
 
         <motion.a
           {...tapHoverSubtle}
-          href="tel:+919876543210"
+          href={contactInfo.phoneHref}
           className="hidden shrink-0 items-center gap-1.5 rounded-full border border-brand-cyan/40 bg-mint-50 px-4 py-2 text-sm font-semibold text-ink-800 transition-colors hover:bg-mint-100 sm:flex"
         >
           <Phone size={14} className="text-brand-blue" />
-          +91 98765 43210
+          {contactInfo.phoneDisplay}
         </motion.a>
 
         <motion.button
@@ -162,14 +171,7 @@ export default function Header() {
               className="fixed inset-y-0 right-0 z-50 w-[85%] max-w-sm overflow-y-auto bg-white px-6 py-5 shadow-card-hover lg:hidden"
             >
               <div className="flex items-center justify-between border-b border-ink-900/10 pb-4">
-                <span className="flex items-center gap-2">
-                  <span className="bg-gradient-brand-r flex h-9 w-9 items-center justify-center rounded-xl text-white">
-                    <Compass size={18} strokeWidth={2.2} />
-                  </span>
-                  <span className="font-display text-lg font-extrabold text-ink-900">
-                    Trip Dreamers
-                  </span>
-                </span>
+                <img src={logo} alt="Trip Dreamers Holidays" className="h-9 w-auto object-contain" />
                 <motion.button
                   {...tapHoverSubtle}
                   onClick={() => setMenuOpen(false)}
@@ -229,21 +231,19 @@ export default function Header() {
                 </div>
               ))}
               {UTILITY_LINKS.map((link) => (
-                <a
+                <UtilityLink
                   key={link.label}
-                  href={link.href}
+                  link={link}
                   onClick={() => setMenuOpen(false)}
                   className="border-b border-ink-900/5 py-3 text-sm font-semibold text-ink-800 hover:text-brand-blue"
-                >
-                  {link.label}
-                </a>
+                />
               ))}
               <a
-                href="tel:+919876543210"
+                href={contactInfo.phoneHref}
                 className="mt-3 flex items-center gap-1.5 text-sm font-semibold text-brand-blue"
               >
                 <Phone size={14} />
-                +91 98765 43210
+                {contactInfo.phoneDisplay}
               </a>
             </nav>
             </motion.div>

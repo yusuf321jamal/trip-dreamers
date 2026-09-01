@@ -63,7 +63,7 @@ export default function ExoticDestinations() {
                   <RotatingImage
                     images={dest.images}
                     alt={`${dest.name} travel destination`}
-                    className="h-72 w-full sm:h-96"
+                    className="relative h-72 w-full sm:h-96"
                   />
                 </Reveal>
               </div>

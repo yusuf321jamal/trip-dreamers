@@ -1,33 +1,13 @@
-import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { blogPosts } from "../data/blog";
-import { tapHover } from "../lib/motion";
-import Reveal from "./ui/Reveal";
+import BlogCta from "./ui/BlogCta";
 import RevealItem from "./ui/RevealItem";
 
 export default function TravelBlog() {
   return (
     <section id="blog" className="scroll-mt-24 bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6">
-        <Reveal className="bg-gradient-brand flex flex-col items-start gap-5 rounded-3xl p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
-          <div>
-            <h2 className="text-2xl font-extrabold text-white sm:text-3xl">
-              Explore Our Travel Blog
-            </h2>
-            <p className="mt-1.5 max-w-md text-sm text-white/90 sm:text-base">
-              Discover travel tips, destination guides, and insider insights from our expert
-              travelers.
-            </p>
-          </div>
-          <motion.a
-            {...tapHover}
-            href="#blog"
-            className="flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-brand-blue"
-          >
-            Read Our Blog
-            <ArrowRight size={16} />
-          </motion.a>
-        </Reveal>
+        <BlogCta />
 
         <div className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {blogPosts.map((post, i) => (

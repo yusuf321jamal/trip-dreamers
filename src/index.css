@@ -37,14 +37,14 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
   font-family: var(--font-body);
   background-color: #ffffff;
   color: var(--color-ink-900);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -94,4 +94,22 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-marquee {
   animation: marquee 26s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee 26s linear infinite reverse;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float-y 3.2s ease-in-out infinite;
 }
